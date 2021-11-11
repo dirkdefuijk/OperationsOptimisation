@@ -24,15 +24,37 @@ def create_objective(model, variables, coeff):
 	model.setObjective(np.dot(np.array(variables).flatten(),coeff.flatten()), GRB.MINIMIZE)
 
 
+# def create_constraints(model, flights, gates, variables):
+# 	num_flights = len(flights["passengers"])
+# 	num_gates = len(gates["distance"])
+
+# 	for i in range(num_flights):
+# 		model.addConstr(sum(variables[i]) == 1)
+
+# 	for j in range(num_gates):
+# 		model.addConstr(sum(row[j] for row in variables) <= 1)
+
 def create_constraints(model, flights, gates, variables):
 	num_flights = len(flights["passengers"])
 	num_gates = len(gates["distance"])
 
+	# flight constraints
 	for i in range(num_flights):
-		model.addConstr(sum(variables[i]) == 1)
+		vars_to_add_f = []
+		for j in range(num_gates):
+			if flights["category"][i] == gates["category"][j]:
+				vars_to_add_f.append(variables[i][j])
+		model.addConstr(sum(vars_to_add_f) == 1)
 
+	# gate constraints - including compatibility
+	print(f'vars = {variables}')
 	for j in range(num_gates):
-		model.addConstr(sum(row[j] for row in variables) <= 1)
+		vars_to_add = []
+		for k in range(num_flights):
+			if flights["category"][k] == gates["category"][j]:
+				vars_to_add.append(variables[k][j])
+		print(f"varstoadd = {vars_to_add}")
+		model.addConstr(sum(vars_to_add) <= 1)
 
 
 flights, gates = create_dict("dataset_flights.csv", "dataset_gates.csv")
@@ -44,6 +66,11 @@ create_constraints(model, flights, gates, variables)
 model.update()
 model.write("LP_problem.lp")
 model.optimize()
+
+
+
+
+# Print optimal Solution
 
 for var in model.getVars():
 	print(f"{var.VarName} = {var.X}")
