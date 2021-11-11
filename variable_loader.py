@@ -1,8 +1,10 @@
 import pandas as pd
 
-def create_dict(csv_file):
-    dataset = pd.read_csv(csv_file, header = None, skiprows = [0])
-    flights = {'passengers': dataset.iloc[:,1], 'time period': dataset.iloc[:,2]}
-    gates = {'distance': dataset.iloc[:,4]}
+def create_dict(csv_flights, csv_gates):
+    dataset_flights = pd.read_csv(csv_flights, header = None, skiprows = [0])
+    flights = {'passengers': dataset_flights.iloc[:,1], 'time period': dataset_flights.iloc[:,2]}
+
+    dataset_gates = pd.read_csv(csv_gates, header = None, skiprows = [0])
+    gates = {'distance': dataset_gates.iloc[:,1]}
 
     return flights, gates
