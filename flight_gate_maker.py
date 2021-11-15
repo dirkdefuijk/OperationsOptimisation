@@ -2,16 +2,16 @@ import random
 import numpy as np
 import pandas as pd
 
-no_flights = 3
-no_gates = 3
+no_flights = 20
+no_gates = 7
 no_categories = 3
-no_timeslots = 32
+no_timeslots = 10
 max_passengers = 300
 min_passengers = 50
 max_distance = 100
 
-filename = 'test'
-np.random.seed(0)
+filename = 'generated'
+np.random.seed(1)
 
 flights = np.arange(0, no_flights, 1).reshape(-1,1)
 passengers = np.random.randint(min_passengers, max_passengers, size=no_flights, dtype=int).reshape(-1,1)
