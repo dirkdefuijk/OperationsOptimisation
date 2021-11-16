@@ -2,6 +2,7 @@ from gurobipy import Model,GRB,LinExpr
 import numpy as np
 import math
 from variable_loader import *
+from flight_gate_maker import no_timeslots
 
 
 def create_variables(model, flights, gates):
@@ -42,7 +43,8 @@ def create_constraints(model, flights, gates, variables):
 		model.addConstr(sum(vars_to_add_f) == 1, flight_constr_name)
 
 	# timeslot compatibility,
-	num_slots = 3
+	num_slots = 1
+	counter = 0
 	for timeslot in range(num_slots):
 		
 		# Find flights that need a gate at timeslot 
@@ -51,7 +53,7 @@ def create_constraints(model, flights, gates, variables):
 			if timeslot_flight == timeslot:
 				need_a_gate_at_timeslot.append(i)
 
-		constr_number = 0
+		
 		for j in range(num_gates):
 			vars_to_add = []
 			for k in need_a_gate_at_timeslot:
@@ -59,9 +61,10 @@ def create_constraints(model, flights, gates, variables):
 					vars_to_add.append(variables[k][j])
 			# print(f"varstoadd = {vars_to_add}")
 			if not vars_to_add == []:
-				gate_constr_name = "gate_" + str(constr_number)
+				gate_constr_name = "gate_" + str(counter)
 				model.addConstr(sum(vars_to_add) <= 1, name=gate_constr_name)
-				constr_number += 1
+				counter += 1
+				
 
 def print_optimal_sol(model):
 	try:
@@ -71,22 +74,26 @@ def print_optimal_sol(model):
 	except AttributeError:
 		print("\nNo optimal solution: infeasible problem ")
 
-def write_solution(sol_filename, variables):
+def write_solution(sol_filename, variables, flights):
 	with open(sol_filename, 'w') as f:
 		for i in range(len(variables)):
 			for j in range(len(variables[i])):
 				if variables[i][j].X == 1:
-					f.write(f"Aircraft {i} goes to Gate {j}\n")
+					timeslot = flights["time period"][i]
+					f.write(f"Aircraft {i} goes to Gate {j}, at timeslot {timeslot} \n")
+
+		obj = model.getObjective()
+		f.write(f"\nOptimal Objective value = Total walking distance = {obj.getValue()*10} km")
 
 # Modify first argument to create_dict below to use different dataset.
-flights, gates = create_dict("generated_flights.csv", "generated_gates.csv")
+flights, gates = create_dict("test_datasets/test03/test_flights.csv", "test_datasets/test03/test_gates.csv")
 model = Model()
 variables, coeff = create_variables(model, flights, gates)
 model.update()
 create_objective(model, variables, coeff)
 create_constraints(model, flights, gates, variables)
 model.update()
-model.write("LP_problem.lp")
+model.write("test_datasets/test03/LP_problem.lp")
 model.optimize()
 print_optimal_sol(model)
-write_solution("test_solution.txt", variables)
+write_solution("test_datasets/test03/solution.txt", variables, flights)
