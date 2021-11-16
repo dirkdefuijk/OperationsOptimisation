@@ -9,6 +9,7 @@ no_timeslots = 10
 max_passengers = 300
 min_passengers = 50
 max_distance = 100
+VIP_split = 0.1
 
 filename = 'generated'
 np.random.seed(1)
@@ -17,8 +18,9 @@ flights = np.arange(0, no_flights, 1).reshape(-1,1)
 passengers = np.random.randint(min_passengers, max_passengers, size=no_flights, dtype=int).reshape(-1,1)
 flight_timeslots = np.random.randint(0, no_timeslots, size=no_flights, dtype=int).reshape(-1,1)
 flight_categories = np.random.randint(0, no_categories, size=no_flights, dtype=int).reshape(-1,1)
-temp = np.hstack((flights, passengers, flight_timeslots, flight_categories))
-array_flights = np.asarray(['flights', 'passengers', 'timeslot', 'category'])
+VIP = np.random.choice(a=[1, 0], size=no_flights, p=[VIP_split, 1-VIP_split]).reshape(-1,1)
+temp = np.hstack((flights, passengers, flight_timeslots, flight_categories, VIP))
+array_flights = np.asarray(['flights', 'passengers', 'timeslot', 'category', 'VIP'])
 array_flights = np.vstack((array_flights, temp))
 array_flights = pd.DataFrame(array_flights)
 
