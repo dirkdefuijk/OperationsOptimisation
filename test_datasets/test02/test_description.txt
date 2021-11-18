@@ -1,0 +1,9 @@
+* Test supply and demand constraints and obj function
+- 3 gates, 4 flights
+- time slot fixed
+- category fixed
+- number of passengers per flight varies
+- distance per gate  varies
+
+* Expected Result
+- Ineasible
