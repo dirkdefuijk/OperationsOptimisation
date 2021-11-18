@@ -1,0 +1,10 @@
+* Test gate compatibility constraints and obj function
+- 3 gates, 2 flights
+- category varies
+- number of passengers per flight varies
+- distance per gate varies
+- time slot fixed
+
+* Expected Result
+- Feasible
+- Z = (100*100 + 200*200)/10000 = 5.0 = 50 km
