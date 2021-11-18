@@ -1,0 +1,10 @@
+* Test VIP constraints and obj function
+- 3 gates, 3 flights
+- category varies
+- number of passengers per flight varies
+- distance per gate varies (Both further than 30 m)
+- time slot fixed
+- VIPs on one flight
+
+* Expected Result
+- Infeasible
