@@ -1,0 +1,9 @@
+* Test gate compatibility constraints and obj function
+- 3 gates, 2 flights
+- category varies (one flight with category 2, no gates with category 2)
+- number of passengers per flight varies
+- distance per gate varies
+- time slot fixed
+
+* Expected Result
+- Infeasible
