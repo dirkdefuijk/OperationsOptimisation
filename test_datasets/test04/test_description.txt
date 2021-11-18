@@ -1,0 +1,9 @@
+* Test time slot compatibility constraints and obj function
+- 2 gates, 4 flights
+- category fixed
+- number of passengers per flight varies
+- distance per gate varies
+- time slot varies (3 flights in same timeslot)
+
+* Expected Result
+- Infeasible
