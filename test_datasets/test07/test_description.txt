@@ -1,0 +1,12 @@
+* Test VIP constraints and obj function
+- 3 gates, 3 flights
+- category varies
+- number of passengers per flight varies
+- distance per gate varies
+- time slot fixed
+- VIPs on one flight
+
+* Expected Result
+- Feasible
+- VIP flight can only be assigned to gate with d < 30 m. flight 1 needs to go to gate 1
+- Z = (100*100 + 5*29 + 300*31)/10000 = 1.9445 = 19.445 km
