@@ -91,10 +91,13 @@ def write_solution(sol_filename, variables, flights):
 			for j in range(len(variables[i])):
 				if variables[i][j].X == 1:
 					timeslot = flights["time period"][i]
-					f.write(f"Aircraft {i} goes to Gate {j}, at timeslot {timeslot} \n")
+					f.write(f"Aircraft {i} goes to Gate {j}, at timeslot {timeslot}")
+					if flights["VIP"][i] == 1:
+						f.write(" (VIP)")
+					f.write('\n')
 
 		obj = model.getObjective()
-		f.write(f"\nOptimal Objective value = Total walking distance = {obj.getValue()*10} km")
+		f.write(f"\n\nOptimal Objective value = Total walking distance = {obj.getValue()*10} km")
 
 # Modify first argument to create_dict below to use different dataset.
 flights, gates = create_dict("Zurich/zurich_flights.csv", "Zurich/zurich_gates.csv")
