@@ -1,0 +1,10 @@
+* Test supply and demand constraints and obj function
+- 4 gates, 4 flights
+- time slot fixed
+- category fixed
+- number of passengers per flight varies
+- distance per gate  varies
+
+* Expected Result
+- Feasible
+- Z = (100^2 + 200^2 + 300^2 + 400^2) /10000 = 3.0

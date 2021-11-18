@@ -49,19 +49,21 @@ def create_constraints(model, flights, gates, variables):
 		model.addConstr(sum(vars_to_add_f) == 1, flight_constr_name)
 
 	# timeslot compatibility,
-	# num_slots = 1
+	num_slots = 1
 	counter = 0
-	for timeslot in range(no_timeslots):
+	for timeslot in range(num_slots):
 
 		# Find flights that need a gate at timeslot
 		need_a_gate_at_timeslot = []
 		for i, timeslot_flight in enumerate(flights['time period']):
 			if timeslot_flight == timeslot:
 				need_a_gate_at_timeslot.append(i)
+				print(need_a_gate_at_timeslot)
 
-
+		print(need_a_gate_at_timeslot)
 		for j in range(num_gates):
 			vars_to_add = []
+			
 			for k in need_a_gate_at_timeslot:
 				if flights["category"][k] == gates["category"][j]:
 					if flights["VIP"][k] == 1:
@@ -97,14 +99,14 @@ def write_solution(sol_filename, variables, flights):
 		f.write(f"\nOptimal Objective value = Total walking distance = {obj.getValue()*10} km")
 
 # Modify first argument to create_dict below to use different dataset.
-flights, gates = create_dict("generated_flights.csv", "generated_gates.csv")
+flights, gates = create_dict("test_datasets/test01/test_flights.csv", "test_datasets/test01/test_gates.csv")
 model = Model()
 variables, coeff = create_variables(model, flights, gates)
 model.update()
 create_objective(model, variables, coeff)
 create_constraints(model, flights, gates, variables)
 model.update()
-model.write("LP_problem.lp")
+model.write("test_datasets/test01/LP_problem.lp")
 model.optimize()
 print_optimal_sol(model)
-write_solution("solution.txt", variables, flights)
+write_solution("test_datasets/test01/solution.txt", variables, flights)

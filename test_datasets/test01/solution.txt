@@ -1,0 +1,6 @@
+Aircraft 0 goes to Gate 3, at timeslot 0 
+Aircraft 1 goes to Gate 2, at timeslot 0 
+Aircraft 2 goes to Gate 1, at timeslot 0 
+Aircraft 3 goes to Gate 0, at timeslot 0 
+
+Optimal Objective value = Total walking distance = 200.0 km
