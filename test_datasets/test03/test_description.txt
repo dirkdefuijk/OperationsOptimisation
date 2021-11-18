@@ -1,0 +1,10 @@
+* Test time slot compatibility constraints and obj function
+- 2 gates, 4 flights
+- category fixed
+- number of passengers per flight varies
+- distance per gate  varies
+- time slot varies
+
+* Expected Result
+- Feasible
+- Z = (100*200 + 200*100 + 300*200 + 400*100 )/10000 = 14 = 140 km
