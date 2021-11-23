@@ -1,5 +1,6 @@
 import seaborn as sb
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from flight_gate_maker import no_timeslots, no_flights
 from gatePlanning import model, variables, flights, gates
@@ -23,3 +24,10 @@ plt.xlabel("Time Slot")
 plt.ylabel("Walking distance (m)")
 plt.legend(title="Category")
 plt.show()
+
+# data2 = pd.read_csv('100_flights_30_gates_100_threshold.csv')
+# sb.scatterplot(data = data2 ,x = data2.iloc[:, 0], y = data2.iloc[:,1])
+# plt.xlabel("Fraction of VIP flights")
+# plt.ylabel("Total daily walking distance (m)")
+# plt.grid()
+# plt.show()
