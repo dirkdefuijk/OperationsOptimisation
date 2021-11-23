@@ -2,17 +2,17 @@ import random
 import numpy as np
 import pandas as pd
 
-no_flights = 20
-no_gates = 7
+no_flights = 754 # Zurich: 754 flights
+no_gates = 96 # Zurich: 96 gates
 no_categories = 3
-no_timeslots = 10
+no_timeslots = 16
 max_passengers = 300
 min_passengers = 50
-max_distance = 100
-VIP_split = 0.1
+max_distance = 200
+VIP_split = 0.01
 
-filename = 'generated'
-np.random.seed(1)
+filename = 'Zurich/zurich'
+np.random.seed(0)
 
 flights = np.arange(0, no_flights, 1).reshape(-1,1)
 passengers = np.random.randint(min_passengers, max_passengers, size=no_flights, dtype=int).reshape(-1,1)

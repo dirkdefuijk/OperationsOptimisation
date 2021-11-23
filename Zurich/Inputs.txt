@@ -1,0 +1,8 @@
+754 flights
+96 gates
+3 categories
+16 time slots
+passengers (50-300)
+max distance 200
+VIP split 0.01
+VIP threshold 100
